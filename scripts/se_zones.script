@@ -2,26 +2,6 @@ local not_spawn_levels = {
 	l05_bar = true
 }
 
-function is_single_player_game	()
-	if (_G.alife == nil) then
-		return	(true)
-	end
-	
-	if (alife() ~= nil) then
-		return	(true)
-	end
-	
-	if (_G.IsGameTypeSingle == nil) then
-		return	(true)
-	end
-
-	if (IsGameTypeSingle() == true) then
-		return	(true)
-	end
-
-	return		(false)
-end
-
 class "se_zone_anom" (cse_anomalous_zone)
 function se_zone_anom:__init (section) super (section)	
 end
@@ -48,10 +28,6 @@ end
 function se_zone_anom:STATE_Write(packet)
 	cse_anomalous_zone.STATE_Write(self, packet)
 
-	if (is_single_player_game() == false) then
-		return
-	end
-	
 	if self.last_spawn_time == nil then
 		packet:w_u8(0)
 	else
@@ -64,10 +40,6 @@ function se_zone_anom:STATE_Read( packet, size )
 	cse_anomalous_zone.STATE_Read( self, packet, size )
 	
 	if editor() then
-		return
-	end
-	
-	if (is_single_player_game() == false) then
 		return
 	end
 	
@@ -101,14 +73,9 @@ function se_zone_visual:update()
 		end
 	end	
 end
-
 function se_zone_visual:STATE_Write(packet)
 	cse_zone_visual.STATE_Write(self, packet)
 
-	if (is_single_player_game() == false) then
-		return
-	end
-	
 	if self.last_spawn_time == nil then
 		packet:w_u8(0)
 	else
@@ -121,10 +88,6 @@ function se_zone_visual:STATE_Read( packet, size )
 	cse_zone_visual.STATE_Read( self, packet, size )
 	
 	if editor() then
-		return
-	end
-	
-	if (is_single_player_game() == false) then
 		return
 	end
 	
