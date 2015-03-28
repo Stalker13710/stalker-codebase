@@ -1,0 +1,1 @@
+this is a copy of folders gamedata\(scripts|config) for all versions.
